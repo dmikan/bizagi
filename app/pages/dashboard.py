@@ -36,11 +36,12 @@ def show_dashboard():
                     hide_index=True
                 )
                 
-                # Botón de descarga
-                csv = df_result.to_csv(index=False, sep=';', encoding='utf-8-sig')
+                # Botón de descarga - Usamos utf-8-sig para que Excel reconozca las tildes
+                csv_bytes = df_result.to_csv(index=False, sep=';').encode('utf-8-sig')
+                
                 st.download_button(
                     label="Descargar CSV",
-                    data=csv,
+                    data=csv_bytes,
                     file_name='reporte_actividades_bpmn.csv',
                     mime='text/csv',
                 )
